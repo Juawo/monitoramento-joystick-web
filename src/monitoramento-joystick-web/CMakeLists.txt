@@ -35,7 +35,11 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(monitoramento-joystick-web monitoramento-joystick-web.c )
+add_executable(monitoramento-joystick-web monitoramento-joystick-web.c 
+        src/joystick_monitor.c
+        src/web_server.c
+        src/wifi_connection.c
+)
 
 pico_set_program_name(monitoramento-joystick-web "monitoramento-joystick-web")
 pico_set_program_version(monitoramento-joystick-web "0.1")
@@ -46,11 +50,23 @@ pico_enable_stdio_usb(monitoramento-joystick-web 1)
 
 # Add the standard library to the build
 target_link_libraries(monitoramento-joystick-web
-        pico_stdlib)
+        hardware_gpio
+        pico_cyw43_arch_lwip_threadsafe_background
+        pico_stdlib
+)
 
 # Add the standard include files to the build
 target_include_directories(monitoramento-joystick-web PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
+        ${PICO_SDK_PATH}/lib/lwip/src/include
+        ${PICO_SDK_PATH}/lib/lwip/src/include/arch
+        ${PICO_SDK_PATH}/lib/lwip/src/include/lwip
+        include
+)
+
+target_sources(monitoramento-joystick-web PRIVATE
+    ${PICO_SDK_PATH}/lib/lwip/src/apps/http/httpd.c
+    ${PICO_SDK_PATH}/lib/lwip/src/apps/http/fs.c
 )
 
 # Add any user requested libraries
