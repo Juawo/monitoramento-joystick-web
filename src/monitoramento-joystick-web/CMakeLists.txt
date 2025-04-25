@@ -51,6 +51,7 @@ pico_enable_stdio_usb(monitoramento-joystick-web 1)
 # Add the standard library to the build
 target_link_libraries(monitoramento-joystick-web
         hardware_gpio
+        hardware_adc
         pico_cyw43_arch_lwip_threadsafe_background
         pico_stdlib
 )
