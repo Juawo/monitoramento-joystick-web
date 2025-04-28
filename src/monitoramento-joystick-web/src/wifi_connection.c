@@ -10,10 +10,10 @@ void setup_wifi()
 
     cyw43_arch_enable_sta_mode();
 
-    while(cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK, 2000))
+    while(cyw43_arch_wifi_connect_timeout_ms(WIFI_SSID, WIFI_PASSWORD, CYW43_AUTH_WPA2_AES_PSK, 5000))
     {
         printf("Erro ao conectar ao Wi-Fi, tentando novamente\n");
-        sleep_ms(1000);
+        sleep_ms(5000);
     }
 
     printf("Conectado ao Wi-Fi!\n");

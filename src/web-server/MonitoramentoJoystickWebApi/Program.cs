@@ -6,7 +6,7 @@ builder.WebHost.UseUrls("http://0.0.0.0:5000");
 
 var app = builder.Build();
 
-PicoData? data = new(10, 20);
+PicoData? data = new(50, 20);
 
 app.UseDefaultFiles();
 app.UseStaticFiles();

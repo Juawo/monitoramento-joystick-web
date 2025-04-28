@@ -21,7 +21,7 @@ void send_data_to_server(const char *path, char *request_body, const char *type_
 
     if(tcp_connect(pcb, &server_ip, SERVEE_PORT, NULL) != ERR_OK)
     {
-        printf("Erro ao conectar com o servidor!\n");
+        printf("Erro ao conectar com o servidor WEB!\n");
         tcp_abort(pcb);
         return;
     }
@@ -58,14 +58,15 @@ void send_data_to_server(const char *path, char *request_body, const char *type_
 
 void create_request(Vector2D vector2d)
 {
-    const char *type_meethod = "POST";
+    const char *type_method = "POST";
     const char *path = SERVER_PATH;
+
     char json_request[256];
 
     snprintf(json_request, sizeof(json_request),
              "{ \"x\" : %d, "
              "\"y\" : %d }",
              vector2d.x, vector2d.y);
-    printf("JSON gerado : %s", json_request);
-    send_data_to_server(path, json_request, type_meethod);
+    printf("JSON gerado : %s\n", json_request);
+    send_data_to_server(path, json_request, type_method);
 }
