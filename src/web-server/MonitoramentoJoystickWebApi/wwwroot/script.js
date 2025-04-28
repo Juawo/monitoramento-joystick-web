@@ -5,8 +5,8 @@ async function atualizarJoystick() {
 
         console.log(json);
 
-        document.getElementById('posX').textContent = json.X.toFixed(2);
-        document.getElementById('posY').textContent = json.Y.toFixed(2);
+        document.getElementById('posX').textContent = json.x;
+        document.getElementById('posY').textContent = json.y;
     } catch (e) {
         console.error("Erro ao buscar dados: ", e);
     }

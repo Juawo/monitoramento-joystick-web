@@ -10,7 +10,7 @@
 #include "lwip/pbuf.h"
 #include "joystick_monitor.h"
 
-#define SERVER_IP "0.0.0.0"
+#define SERVER_IP "192.168.1.196"
 #define SERVEE_PORT 5000
 #define SERVER_PATH "/dados"
 
