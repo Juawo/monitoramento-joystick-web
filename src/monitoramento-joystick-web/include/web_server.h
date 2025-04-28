@@ -15,7 +15,7 @@
 #define SERVER_PATH "/dados"
 
 err_t sent_callback(void *arg, struct tcp_pcb *tpcb, u16_t len);
-void send_data_to_server(const char *path, char *request_body, const char type_method);
+void send_data_to_server(const char *path, char *request_body, const char *type_method);
 void create_request(Vector2D vector2d);
 
 #endif

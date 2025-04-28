@@ -3,7 +3,7 @@
 err_t sent_callback(void *arg, struct tcp_pcb *tcpb, u16_t len)
 {
     printf("Dados enviados com sucesso!\n");
-    tcp_closee(tcpb);
+    tcp_close(tcpb);
     return ERR_OK;
 }
 
@@ -40,7 +40,7 @@ void send_data_to_server(const char *path, char *request_body, const char *type_
 
     tcp_sent(pcb, sent_callback);
 
-    if(tcp_write(pcb, request, srtlen(request), TCP_WRITE_FLAG_COPY) != ERR_OK)
+    if(tcp_write(pcb, request, strlen(request), TCP_WRITE_FLAG_COPY) != ERR_OK)
     {
         printf("Erro ao enviar dados!\n");
         tcp_abort(pcb);
