@@ -1,4 +1,5 @@
 #include "web_server.h"
+#include "lwip/dns.h" // Include the header for dns_gethostbyname
 
 err_t sent_callback(void *arg, struct tcp_pcb *tcpb, u16_t len)
 {
@@ -7,7 +8,82 @@ err_t sent_callback(void *arg, struct tcp_pcb *tcpb, u16_t len)
     return ERR_OK;
 }
 
-void send_data_to_server(const char *path, char *request_body, const char *type_method)
+void connect_and_send(ip_addr_t *resolver_ip, char *request)
+{
+    struct tcp_pcb *pcb = tcp_new();
+    if(!pcb) 
+    {
+        printf("Erro ao criar pcb!\n");
+        return;
+    }
+
+    if(tcp_connect(pcb, resolver_ip, SERVER_PORT, NULL) != ERR_OK)
+    {
+        printf("Erro ao conectar com o servidor WEB!\n");
+        tcp_abort(pcb);
+        return;
+    }
+
+    tcp_sent(pcb, sent_callback);
+
+    if(tcp_write(pcb, request,strlen(request), TCP_WRITE_FLAG_COPY) != ERR_OK)
+    {
+        printf("Erro ao enviar dados!\n");
+        tcp_abort(pcb);
+        return;
+    }
+
+    if(tcp_output(pcb) != ERR_OK)
+    {
+        printf("Erro ao enviar dados (tcp_output)\n");
+        tcp_abort(pcb);
+        return;
+    }
+}
+
+void dns_callback(const char *name, const ip_addr_t *ipaddr, void *arg)
+{
+    if(!ipaddr)
+    {
+        printf("Falha ao resolver domínio DNS\n");
+        return;
+    }
+
+    printf("DNS resolvido: %s -> %s\n", name, ipaddr_ntoa(ipaddr));
+    connect_and_send((ip_addr_t *)ipaddr, (char *)arg);
+}
+// Função usada para servidor rodando remotamente! Lembre-se de configurar o arquivo web_server.h
+void send_data_to_remote_server(const char *path, char *request_body, const char *type_method) {
+    char request[521];
+
+    snprintf(request, sizeof(request),
+             "%s %s HTTP/1.1\r\n"
+             "Host: %s\r\n"
+             "Content-Type: application/json\r\n"
+             "Content-Length: %d\r\n"
+             "\r\n"
+             "%s",
+             type_method, path, SERVER_IP, strlen(request_body), request_body);
+
+    ip_addr_t resolved_ip;
+
+    err_t result = dns_gethostbyname(SERVER_IP, &resolved_ip, dns_callback, request);
+
+    if (result == ERR_OK) {
+        // Já resolvido e em cache
+        printf("DNS já resolvido: %s\n", ipaddr_ntoa(&resolved_ip));
+        connect_and_send(&resolved_ip, request);
+    } else if (result == ERR_INPROGRESS) {
+        // Vai chamar dns_callback depois
+        printf("Resolvendo DNS...\n");
+    } else {
+        printf("Erro ao tentar resolver o domínio\n");
+    }
+}
+
+/*
+Função usada para servidor rodando localmente! Lembre-se de alterar o arquivo web_server.h
+void send_data_to_local_server(const char *path, char *request_body, const char *type_method)
 {
     struct tcp_pcb *pcb = tcp_new();
     if(!pcb)
@@ -19,7 +95,7 @@ void send_data_to_server(const char *path, char *request_body, const char *type_
     ip_addr_t server_ip;
     server_ip.addr = ipaddr_addr(SERVER_IP);
 
-    if(tcp_connect(pcb, &server_ip, SERVEE_PORT, NULL) != ERR_OK)
+    if(tcp_connect(pcb, &server_ip, SERVER_PORT, NULL) != ERR_OK)
     {
         printf("Erro ao conectar com o servidor WEB!\n");
         tcp_abort(pcb);
@@ -55,7 +131,7 @@ void send_data_to_server(const char *path, char *request_body, const char *type_
     }
 
 }
-
+*/
 void create_request(Vector2D vector2d)
 {
     const char *type_method = "POST";
@@ -68,5 +144,5 @@ void create_request(Vector2D vector2d)
              "\"y\" : %d }",
              vector2d.x, vector2d.y);
     printf("JSON gerado : %s\n", json_request);
-    send_data_to_server(path, json_request, type_method);
+    send_data_to_remote_server(path, json_request, type_method);
 }

@@ -10,8 +10,8 @@
 #include "lwip/pbuf.h"
 #include "joystick_monitor.h"
 
-#define SERVER_IP "192.168.1.196"
-#define SERVEE_PORT 5000
+#define SERVER_IP "monitoramento-joystick-web-production.up.railway.app" // Defina a URL do servidor (caso esteja na nuvem) ou o IP (caso esteja localmente)
+#define SERVER_PORT 8080
 #define SERVER_PATH "/dados"
 
 err_t sent_callback(void *arg, struct tcp_pcb *tpcb, u16_t len);
