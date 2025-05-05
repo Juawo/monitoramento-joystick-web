@@ -1,3 +1,4 @@
 {
-  "dotnet.defaultSolution": "MonitoramentoJoystickWebApi.sln"
+  "dotnet.defaultSolution": "MonitoramentoJoystickWebApi.sln",
+  "cmake.sourceDirectory": "/home/joao-pedro/Documentos/DevFiles/Embarca-Tech/Residência/Projetos/projeto-monitoramento-joystick-web/src/monitoramento-joystick-web"
 }

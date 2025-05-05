@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include "pico/cyw43_arch.h"
 
-#define WIFI_SSID "MAMBEE"           // Nome da rede
-#define WIFI_PASSWORD "1fp1mamb33"     // Senha da rede, caso não tenha coloque NULL
+#define WIFI_SSID "Nome-da-Rede"           // Nome da rede
+#define WIFI_PASSWORD "Senha-da-Rede"     // Senha da rede, caso não tenha coloque NULL
 
 void setup_wifi();
 
