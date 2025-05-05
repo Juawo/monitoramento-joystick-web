@@ -1,43 +1,41 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Rosa dos Ventos do Joystick</title>
-  <link rel="stylesheet" href="styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento de Joystick WEB</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Monitoramento de Joystick WEB</h1>
-
-  <div class="leituras">
-    <div>
-      <strong>Posição X:</strong>
-      <span id="posX">0</span>
+    <div class="container">
+        <header>
+            <h1>Monitoramento de Joystick WEB</h1>
+            <div class="header-line"></div>
+        </header>
+        
+        <main>
+            <div class="joystick-panel">
+                <h2>Posições</h2>
+                
+                <div class="position-box">
+                    <span>Posição X:</span>
+                    <span id="position-x" class="position-value">0</span>
+                </div>
+                
+                <div class="position-box">
+                    <span>Posição Y:</span>
+                    <span id="position-y" class="position-value">0</span>
+                </div>
+                
+                <h2>Direção</h2>
+                <div id="direction" class="direction-display">Centro</div>
+            </div>
+            
+            <div class="compass-display">
+                <canvas id="compass" width="400" height="400"></canvas>
+            </div>
+        </main>
     </div>
-    <div>
-      <strong>Posição Y:</strong>
-      <span id="posY">0</span>
-    </div>
-    <div class="direcao-texto">
-      <strong>Direção:</strong>
-      <span id="direcao">Centro</span>
-    </div>
-  </div>
-
-  <div class="rose">
-    <div class="segment noroeste" data-dir="noroeste">NO</div>
-    <div class="segment norte"    data-dir="norte">N</div>
-    <div class="segment nordeste" data-dir="nordeste">NE</div>
-
-    <div class="segment oeste"    data-dir="oeste">O</div>
-    <div class="segment centro"   data-dir="centro"></div>
-    <div class="segment leste"    data-dir="leste">L</div>
-
-    <div class="segment sudoeste" data-dir="sudoeste">SO</div>
-    <div class="segment sul"      data-dir="sul">S</div>
-    <div class="segment sudeste"  data-dir="sudeste">SE</div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="joystick.js"></script>
 </body>
 </html>
