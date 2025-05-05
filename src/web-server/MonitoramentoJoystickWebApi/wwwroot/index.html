@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
@@ -39,5 +39,47 @@
   </div>
 
   <script src="script.js"></script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento de Joystick WEB</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Monitoramento de Joystick WEB</h1>
+            <div class="header-line"></div>
+        </header>
+        
+        <main>
+            <div class="joystick-panel">
+                <h2>Posições</h2>
+                
+                <div class="position-box">
+                    <span>Posição X:</span>
+                    <span id="position-x" class="position-value">0</span>
+                </div>
+                
+                <div class="position-box">
+                    <span>Posição Y:</span>
+                    <span id="position-y" class="position-value">0</span>
+                </div>
+                
+                <h2>Direção</h2>
+                <div id="direction" class="direction-display">Centro</div>
+            </div>
+            
+            <div class="compass-display">
+                <canvas id="compass" width="400" height="400"></canvas>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
