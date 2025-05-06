@@ -62,6 +62,6 @@ async function atualizarJoystick() {
     });
   }
   
-  setInterval(atualizarJoystick, 500);
+  setInterval(atualizarJoystick, 100);
   atualizarJoystick();
   

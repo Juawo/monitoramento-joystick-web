@@ -24,6 +24,6 @@ int main()
         // Cria uma requisição com base no estado do joystick
         create_request(joystick_state);
         // Aguarda 1000 milissegundos (1 segundo)
-        sleep_ms(1000);
+        sleep_ms(100);
     }
 }
