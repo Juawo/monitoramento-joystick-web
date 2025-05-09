@@ -46,8 +46,7 @@ Este projeto monitora a posição de um joystick analógico utilizando a Raspber
 
 ``` bash
 cd src/proxy-server
-dotnet restore
-dotnet run
+node proxy-server.js
 ```
 2. Pico W: configure SERVER_IP com o IP do seu PC que está rodando o proxy.
 
