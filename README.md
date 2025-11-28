@@ -2,7 +2,6 @@
 
 Este projeto monitora a posição de um joystick analógico utilizando a Raspberry Pi Pico W e envia os dados via HTTP para um servidor web.
 
-🔗 Servidor remoto: [monitoramento-joystick-web](https://monitoramento-joystick-web-production.up.railway.app/)
 
 ## 📁 Estrutura
 
